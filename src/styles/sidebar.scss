@@ -1,0 +1,32 @@
+.sidebar {
+	background: $darker;
+	height: 100%;
+	max-width: $sidebarMaxWidth;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+}
+.sidebar-list {
+	list-style: none;
+	margin: 2rem 0px 0px;
+	padding: 0px;
+	.sidebar-link {
+		color: $grey;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		text-decoration: none;
+		box-sizing: border-box;
+		padding: 10px;
+		transition: background 0.2s ease-in-out;
+		background: transparent;
+		font-weight: 600;
+		.material-icons {
+			margin-right: 0.8rem;
+		}
+		&:hover {
+			background: $playerBg;
+		}
+	}
+}

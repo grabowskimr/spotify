@@ -1,0 +1,12 @@
+.bottom {
+	background: $playerBg;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	z-index: 99;
+	width: 100%;
+	justify-content: center;
+	display: flex;
+	padding: 10px 0px;
+	box-sizing: border-box;
+}

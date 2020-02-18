@@ -1,0 +1,62 @@
+.player-content {
+	width: 100%;
+	max-width: 600px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	.player-controls {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 0.5rem;
+		.player-control {
+			background: none;
+			padding: 0px;
+			margin: 0px 10px;
+			border: none;
+			.material-icons {
+				font-size: 1.4rem;
+				color: $grey;
+			}
+			&.play {
+				border: 1px solid white;
+				border-radius: 50%;
+				display: block;
+				width: 2.3rem;
+				height: 2.3rem;
+				box-sizing: border-box;
+				.material-icons {
+					font-size: 1.7rem;
+					line-height: 2.3rem;
+					color: white;
+				}
+			}
+		}
+	}
+	.player-info {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		.progress-bar {
+			display: block;
+			background: $progressBar;
+			width: 100%;
+			height: 0.3rem;
+			border-radius: 1rem;
+			margin: 0 20px;
+			overflow: hidden;
+			.progress {
+				width: 20%;
+				background: $grey;
+				display: block;
+				height: 100%;
+				border-radius: 1rem;
+			}
+		}
+		.time {
+			font-size: 0.8rem;
+			color: $grey;
+		}
+	}
+}

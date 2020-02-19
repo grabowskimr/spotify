@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navigation = () => {
+const Navigation = (): JSX.Element => {
 	return (
 		<div className="navigation">
 			<button className="navi-prev">

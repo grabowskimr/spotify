@@ -1,0 +1,59 @@
+.tracks-list-table {
+	width: 100%;
+	border-collapse: collapse;
+	.tracks-list-head {
+		tr th {
+			font-weight: 400;
+			font-size: 1rem;
+			text-align: left;
+			color: $grey;
+			&:last-of-type {
+				text-align: right;
+			}
+		}
+	}
+	.tracks-list-body {
+		.track-record {
+			border-bottom: 1px solid $border;
+			td {
+				font-weight: 400;
+				font-size: 1rem;
+				text-align: left;
+				padding: 5px;
+				box-sizing: border-box;
+				&:nth-of-type(1) {
+					width: 3rem;
+				}
+				&:nth-of-type(3),
+				&:nth-of-type(4) {
+					color: $grey;
+				}
+				&:last-of-type {
+					text-align: right;
+				}
+			}
+			.player-controls {
+				margin: 0px;
+				padding: 0px;
+				opacity: 0;
+				visibility: hidden;
+				.play {
+					width: 2rem;
+					height: 2rem;
+					.material-icons {
+						font-size: 1.3rem;
+						line-height: 1.6rem;
+						color: white;
+					}
+				}
+			}
+			&:hover {
+				background: $border;
+				.player-controls {
+					opacity: 1;
+					visibility: visible;
+				}
+			}
+		}
+	}
+}

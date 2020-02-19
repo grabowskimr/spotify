@@ -1,8 +1,12 @@
 /// <reference types="react-scripts" />
 
-type ReduxState = {};
+type ReduxState = {
+	showLoader: boolean;
+	covers: any;
+	categoryCovers: SpotifyCategory[];
+};
 
-type ReduxAction = {
-    type: symbol;
-    payload: Partial<ReduxState>;
+type Action = {
+	type: symbol;
+	payload: Partial<ReduxState>;
 };

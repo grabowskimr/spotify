@@ -1,13 +1,17 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 import Topbar from './Topbar';
 import Sidebar from './Sidebar';
 import Bottom from './Bottom';
 
-const Layout: React.FC = (props): ReactElement => {
+type Props = {
+	sidebarLinks: TSidebarLink[];
+};
+
+const Layout: React.FC<Props> = (props): JSX.Element => {
 	return (
 		<div className="app-container">
-			<Sidebar />
+			<Sidebar sidebarLinks={props.sidebarLinks} />
 			<div className="right-side">
 				<Topbar />
 				<main className="main">{props.children}</main>

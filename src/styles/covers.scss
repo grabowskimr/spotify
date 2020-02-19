@@ -1,0 +1,91 @@
+.covers-list {
+	list-style: none;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 0px;
+	.cover-list-li {
+		width: 20%;
+		padding: 1rem;
+		box-sizing: border-box;
+	}
+}
+.record-cover {
+	position: relative;
+	.record-cover-name {
+		font-size: 1.1rem;
+		margin: 10px 0px 5px;
+		font-weight: 600;
+		a {
+			text-decoration: none;
+			color: white;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	.record-cover-desc {
+		font-size: 0.9rem;
+		line-height: 1.5;
+		display: inline-block;
+		width: 100%;
+		color: $grey;
+		word-break: break-word;
+	}
+	.record-cover-tracks {
+		font-size: 0.8rem;
+		color: $grey;
+		text-transform: uppercase;
+	}
+	.record-cover-image {
+		max-width: 100%;
+	}
+	.record-player-content {
+		position: relative;
+		.player-content {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			visibility: hidden;
+			background: $bgColorTransparent;
+			.play {
+				width: 4rem;
+				height: 4rem;
+				box-sizing: border-box;
+				.material-icons {
+					font-size: 2.5rem;
+					line-height: 3rem;
+					color: white;
+				}
+			}
+		}
+		&:hover {
+			.player-content {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+	}
+	.category-link {
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		width: 100%;
+		display: flex;
+		height: 100%;
+		text-decoration: none;
+		align-items: flex-end;
+		justify-content: center;
+		color: #fff;
+		font-weight: 500;
+		font-size: 1rem;
+		box-sizing: border-box;
+		padding-bottom: 25%;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

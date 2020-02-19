@@ -1,17 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import 'typeface-roboto';
 
-import "./styles/index.scss";
-import App from "./components/App";
-import * as serviceWorker from "./serviceWorker";
-import store from "./reducers/appReducer";
+import './styles/index.scss';
+import App from './components/App';
+import * as serviceWorker from './serviceWorker';
+import store from './reducers/appReducer';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,18 +1,31 @@
 import React from 'react';
 
-import { initApp, getAlbums } from '../actions/apiCalls';
+import { initApp } from '../actions/apiCalls';
 import Layout from '../containers/Layout';
+import Routing from './Routing';
+import { BrowserRouter } from 'react-router-dom';
 
 class App extends React.Component {
+	state = {
+		sideBarLinks: [
+			{ link: '/', name: 'Home', icon: 'home' },
+			{ link: '/categories', name: 'Categories', icon: 'library_music' },
+			{ link: '/new', name: 'New Releases', icon: 'new_releases' }
+		]
+	};
+
 	componentDidMount(): void {
 		initApp();
-		getAlbums();
 	}
 
 	render(): React.ReactNode {
 		return (
 			<div className="app">
-				<Layout>main</Layout>
+				<BrowserRouter>
+					<Layout sidebarLinks={this.state.sideBarLinks}>
+						<Routing />
+					</Layout>
+				</BrowserRouter>
 			</div>
 		);
 	}

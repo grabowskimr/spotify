@@ -1,21 +1,20 @@
 import React from 'react';
 
-const Sidebar: React.FC = (): JSX.Element => {
+import SidebarLink from './SidebarLink';
+
+type Props = {
+	sidebarLinks: TSidebarLink[];
+};
+
+const Sidebar: React.FC<Props> = (props): JSX.Element => {
 	return (
 		<div className="sidebar">
 			<ul className="sidebar-list">
-				<li className="sidebar-list-item">
-					<a href="/" className="sidebar-link">
-						<span className="material-icons">library_music</span>
-						<span>Categories</span>
-					</a>
-				</li>
-				<li className="sidebar-list-item">
-					<a href="/" className="sidebar-link">
-						<span className="material-icons">new_releases</span>
-						<span>New Releases</span>
-					</a>
-				</li>
+				{props.sidebarLinks.map((link: TSidebarLink) => (
+					<li key={link.name} className="sidebar-list-item">
+						<SidebarLink {...link} />
+					</li>
+				))}
 			</ul>
 		</div>
 	);

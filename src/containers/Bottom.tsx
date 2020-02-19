@@ -1,11 +1,11 @@
 import React from 'react';
 
-import PlayerControls from './PlayerControls';
+import Player from '../components/Player';
 
 const Bottom = (): JSX.Element => {
 	return (
 		<div className="bottom">
-			<PlayerControls />
+			<Player type="full" />
 		</div>
 	);
 };

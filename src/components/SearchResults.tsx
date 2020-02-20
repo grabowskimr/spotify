@@ -2,33 +2,33 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
-import { getNewReleases } from '../actions/apiCalls';
 import { clearPlaylists } from '../actions/actions';
+import { search } from '../actions/apiCalls';
 import ContentHeader from '../containers/ContentHeader';
 import CoverList from '../containers/CoverList';
 
-type MatchParams = {
-	id: string;
+type MatchProps = {
+	query: string;
 };
 
-const NewReleases: React.FC<RouteComponentProps<MatchParams>> = (props): JSX.Element => {
+const SearchResults: React.FC<RouteComponentProps<MatchProps>> = (props): JSX.Element => {
 	const dispatch = useDispatch();
 	const covers = useSelector((state: ReduxState) => state.covers);
 
 	useEffect(() => {
-		dispatch(getNewReleases());
+		dispatch(search(props.match.params.query));
 		return () => {
 			dispatch(clearPlaylists());
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [props.match.params.query]);
 
 	return (
-		<div>
-			<ContentHeader title="New Releases" />
+		<div className="search-results">
+			<ContentHeader title={`Search: ${props.match.params.query}`} />
 			<CoverList covers={covers} />
 		</div>
 	);
 };
 
-export default NewReleases;
+export default SearchResults;

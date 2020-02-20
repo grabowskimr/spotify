@@ -3,11 +3,15 @@ import React from 'react';
 import Search from '../components/Search';
 import Navigation from './Navigation';
 
-const Topbar: React.FC = (): JSX.Element => {
+type Props = {
+	history: any;
+};
+
+const Topbar: React.FC<Props> = (props): JSX.Element => {
 	return (
 		<div className="topbar">
 			<Navigation />
-			<Search />
+			<Search {...props} />
 		</div>
 	);
 };

@@ -1,10 +1,10 @@
 import React from 'react';
+import { createBrowserHistory } from 'history';
 
 import { initApp } from '../actions/apiCalls';
 import Layout from '../containers/Layout';
 import Routing from './Routing';
-import { BrowserRouter } from 'react-router-dom';
-
+import { Router } from 'react-router-dom';
 import ListPlaceholder from '../containers/ListPlaceholder';
 
 class App extends React.Component {
@@ -16,6 +16,8 @@ class App extends React.Component {
 		]
 	};
 
+	history = createBrowserHistory();
+
 	componentDidMount(): void {
 		initApp();
 	}
@@ -23,9 +25,11 @@ class App extends React.Component {
 	render(): React.ReactNode {
 		return (
 			<div className="app">
-				<BrowserRouter>
-					<Layout sidebarLinks={this.state.sideBarLinks}>{window.localStorage.getItem('token') ? <Routing /> : <ListPlaceholder />}</Layout>
-				</BrowserRouter>
+				<Router history={this.history}>
+					<Layout history={this.history} sidebarLinks={this.state.sideBarLinks}>
+						{window.localStorage.getItem('token') ? <Routing /> : <ListPlaceholder />}
+					</Layout>
+				</Router>
 			</div>
 		);
 	}

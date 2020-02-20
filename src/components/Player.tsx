@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import PlayerControls from '../containers/PlayerControls';
@@ -38,6 +38,7 @@ const Player: React.FC<Props> = (props): JSX.Element => {
 
 	useEffect(() => {
 		setNavigation(playedTrack);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playedTrack, playListTracks, playedPlaylistId]);
 
 	const filterPlayableTrack = (tracks: SpotifyStandardizedTrack[]): SpotifyStandardizedTrack[] => {

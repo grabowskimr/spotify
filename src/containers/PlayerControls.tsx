@@ -28,7 +28,9 @@ const PlayerControls = (props: Props): JSX.Element => {
 					</button>
 				) : null}
 				<button className={`player-control play ${props.type === 'full' && !playedTrack.id ? 'disabled' : null}`} onClick={props.handlePlay}>
-					{(isPlaying && correctPlaylist && props.type === 'simple') || (isPlaying && props.currentPlayed && props.type !== 'simple') ? (
+					{(isPlaying && correctPlaylist && props.type === 'simple') ||
+					(isPlaying && props.currentPlayed && props.type !== 'simple') ||
+					(isPlaying && props.type === 'full') ? (
 						<span className="material-icons">pause</span>
 					) : (
 						<span className="material-icons">play_arrow</span>

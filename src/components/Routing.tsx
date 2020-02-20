@@ -8,6 +8,7 @@ import NewReleases from './NewReleases';
 import Tracks from './Tracks';
 import Category from './Category';
 import ErrorMessage from '../containers/ErrorMessage';
+import SearchResults from './SearchResults';
 
 const Routing: React.FC = (): JSX.Element => {
 	const error = useSelector((state: ReduxState) => state.error);
@@ -22,6 +23,7 @@ const Routing: React.FC = (): JSX.Element => {
 					<Route exact path="/category/:id" component={Category} />
 					<Route exact path="/new" component={NewReleases} />
 					<Route exact path="/tracks/:type/:id" component={Tracks} />
+					<Route exact path="/search/:query" component={SearchResults} />
 				</Switch>
 			)}
 		</>

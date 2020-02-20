@@ -15,6 +15,7 @@ const Home: React.FC = (): JSX.Element => {
 		return () => {
 			dispatch(clearPlaylists());
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

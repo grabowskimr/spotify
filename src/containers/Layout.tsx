@@ -6,6 +6,7 @@ import Bottom from './Bottom';
 
 type Props = {
 	sidebarLinks: TSidebarLink[];
+	history: any;
 };
 
 const Layout: React.FC<Props> = (props): JSX.Element => {
@@ -13,7 +14,7 @@ const Layout: React.FC<Props> = (props): JSX.Element => {
 		<div className="app-container">
 			<Sidebar sidebarLinks={props.sidebarLinks} />
 			<div className="right-side">
-				<Topbar />
+				<Topbar {...props} />
 				<main className="main">{props.children}</main>
 			</div>
 			<Bottom />

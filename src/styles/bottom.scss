@@ -5,11 +5,28 @@
 	left: 0px;
 	z-index: 99;
 	width: 100%;
-	justify-content: center;
 	display: flex;
 	padding: 10px 0px;
 	box-sizing: border-box;
 	.player-content {
 		max-width: 600px;
+	}
+	.player-container {
+		margin-left: -$sidebarMaxWidth;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+}
+.played-track {
+	width: $sidebarMaxWidth;
+	padding: 0px 1rem;
+	max-width: 200px;
+	box-sizing: border-box;
+	.track-name {
+		font-size: 0.8rem;
+		font-weight: 400;
+		line-height: normal;
+		white-space: normal;
 	}
 }

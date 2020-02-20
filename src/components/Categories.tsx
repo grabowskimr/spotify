@@ -12,6 +12,7 @@ const Categories: React.FC = (): JSX.Element => {
 
 	useEffect(() => {
 		dispatch(getListOfCategories());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

@@ -10,10 +10,10 @@ import { standarizeTracks } from '../utils/standarizeTracks';
 type TResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 type TDispatch = ThunkDispatch<ReduxState, undefined, Action>;
 
-const getData = (url: string): Promise<any> | null => {
+const getData = (url: string, config = {}): Promise<any> | null => {
 	const token: string | null = localStorage.getItem('token');
 	if (token) {
-		return axios.get(`${endpoint}${url}`);
+		return axios.get(`${endpoint}${url}`, config);
 	}
 	return null;
 };
@@ -51,7 +51,6 @@ export const initApp = function() {
 // };
 
 export const getTracksList = async (id: string, type: string | undefined): Promise<SpotifyStandardizedTracks> => {
-	console.log('asda');
 	const { data }: SpotifyResponse<SpotifyTracks> = await getData(`/${type}s/${id}/tracks`);
 	const tracks: SpotifyStandardizedTracks = { ...data, items: standarizeTracks(data.items) };
 	return tracks;
@@ -97,6 +96,20 @@ export const getNewReleases = (): TResult<Promise<void>> => async (dispatch: TDi
 	try {
 		const { data }: SpotifyResponse<SporifyAlbumsList> = await getData(`/browse/new-releases`);
 		dispatch(insertPlaylists(data.albums.items));
+	} catch (e) {
+		dispatch(showError(e.message));
+	}
+};
+
+export const search = (query: string): TResult<Promise<void>> => async (dispatch: TDispatch) => {
+	try {
+		const { data }: SpotifyResponse<SporifyPlaylists> = await getData(`/search`, {
+			params: {
+				q: query,
+				type: 'playlist'
+			}
+		});
+		dispatch(insertPlaylists(data.playlists.items));
 	} catch (e) {
 		dispatch(showError(e.message));
 	}

@@ -26,15 +26,31 @@
 				width: 2.3rem;
 				height: 2.3rem;
 				box-sizing: border-box;
+				pointer-events: initial;
+				cursor: pointer;
 				transform: scale(0.9);
 				transition: transform 0.1s ease-in-out;
 				&:hover {
 					transform: scale(1);
 				}
+				&.disabled {
+					pointer-events: none;
+					opacity: 0.6;
+				}
 				.material-icons {
 					font-size: 1.7rem;
 					line-height: 2.3rem;
 					color: white;
+				}
+			}
+			&.prev,
+			&.next {
+				opacity: 0.6;
+				pointer-events: none;
+				&.available {
+					opacity: 1;
+					pointer-events: initial;
+					cursor: pointer;
 				}
 			}
 		}

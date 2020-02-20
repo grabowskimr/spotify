@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getListOfCategories } from '../actions/apiCalls';
 import ContentHeader from '../containers/ContentHeader';
 import CategoryCover from '../containers/CategoryCover';
+import CoverPlaceholder from '../containers/CoverPlaceholder';
 
 const Categories: React.FC = (): JSX.Element => {
 	const dispatch = useDispatch();
@@ -17,11 +18,31 @@ const Categories: React.FC = (): JSX.Element => {
 		<div>
 			<ContentHeader title="Categories" />
 			<ul className="covers-list">
-				{covers.map(record => (
-					<li key={record.id} className="cover-list-li">
-						<CategoryCover category={record} />
-					</li>
-				))}
+				{covers.length ? (
+					covers.map(record => (
+						<li key={record.id} className="cover-list-li">
+							<CategoryCover category={record} />
+						</li>
+					))
+				) : (
+					<>
+						<li className="cover-list-li">
+							<CoverPlaceholder type="category" />
+						</li>
+						<li className="cover-list-li">
+							<CoverPlaceholder type="category" />
+						</li>
+						<li className="cover-list-li">
+							<CoverPlaceholder type="category" />
+						</li>
+						<li className="cover-list-li">
+							<CoverPlaceholder type="category" />
+						</li>
+						<li className="cover-list-li">
+							<CoverPlaceholder type="category" />
+						</li>
+					</>
+				)}
 			</ul>
 		</div>
 	);

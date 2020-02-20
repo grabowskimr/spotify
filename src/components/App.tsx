@@ -5,6 +5,8 @@ import Layout from '../containers/Layout';
 import Routing from './Routing';
 import { BrowserRouter } from 'react-router-dom';
 
+import ListPlaceholder from '../containers/ListPlaceholder';
+
 class App extends React.Component {
 	state = {
 		sideBarLinks: [
@@ -22,9 +24,7 @@ class App extends React.Component {
 		return (
 			<div className="app">
 				<BrowserRouter>
-					<Layout sidebarLinks={this.state.sideBarLinks}>
-						<Routing />
-					</Layout>
+					<Layout sidebarLinks={this.state.sideBarLinks}>{window.localStorage.getItem('token') ? <Routing /> : <ListPlaceholder />}</Layout>
 				</BrowserRouter>
 			</div>
 		);

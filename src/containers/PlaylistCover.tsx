@@ -11,7 +11,7 @@ const PlaylistCover = (props: Props): JSX.Element => (
 	<div className="record-cover">
 		<div className="record-player-content">
 			<img className="record-cover-image" src={props.playlist.images[0].url} alt="cover" />
-			<Player type="simple" />
+			<Player type="simple" trackListId={props.playlist.id} trackListType="playlist" />
 		</div>
 		<h3 className="record-cover-name">
 			<Link to={`/tracks/${props.playlist.type}/${props.playlist.id}`}>{props.playlist.name}</Link>

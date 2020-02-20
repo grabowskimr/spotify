@@ -24,7 +24,7 @@ const NewReleases: React.FC<RouteComponentProps<MatchParams>> = (props): JSX.Ele
 
 	return (
 		<div>
-			<ContentHeader title="Category" />
+			<ContentHeader title="New Releases" />
 			<CoverList covers={covers} />
 		</div>
 	);

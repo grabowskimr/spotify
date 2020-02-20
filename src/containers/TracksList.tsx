@@ -1,12 +1,14 @@
 import React from 'react';
 
 import Player from '../components/Player';
+import { msToTime } from '../utils/msToTime';
 
 type Props = {
-	tracks: SpotifyTrack[];
+	tracks: SpotifyStandardizedTrack[];
+	playlistId: string;
 };
 
-const TracksList: React.FC<Props> = ({ tracks }): JSX.Element => (
+const TracksList: React.FC<Props> = ({ tracks, playlistId }): JSX.Element => (
 	<div className="tracks-list">
 		<table className="tracks-list-table">
 			<thead className="tracks-list-head">
@@ -19,24 +21,16 @@ const TracksList: React.FC<Props> = ({ tracks }): JSX.Element => (
 			</thead>
 			<tbody className="tracks-list-body">
 				{tracks.map(track => {
-					const isPlaylist = !!track.track;
-					const id = isPlaylist ? track.track.id : track.id;
+					if (!track.id) return null;
 
-					if (!id) return null;
-
-					const artists = isPlaylist ? track.track.artists : track.artists;
-					const trackName = isPlaylist ? track.track.name : track.name;
-					const duration = isPlaylist ? track.track.duration_ms : track.duration_ms;
-					const artistsNames = artists.length > 1 ? artists.map(artist => artist.name).join(', ') : artists[0].name;
+					const artistsNames = track.artists.length > 1 ? track.artists.map(artist => artist.name).join(', ') : track.artists[0].name;
 
 					return (
-						<tr key={id} className="track-record">
-							<td>
-								<Player type="play" />
-							</td>
-							<td className="track-name">{trackName}</td>
+						<tr key={track.id} className="track-record">
+							<td>{track.preview_url ? <Player type="play" track={track} trackListId={playlistId} /> : null}</td>
+							<td className="track-name">{track.name}</td>
 							<td className="track-duration">{artistsNames}</td>
-							<td className="track-duration">{duration}</td>
+							<td className="track-duration">{msToTime(track.duration_ms)}</td>
 						</tr>
 					);
 				})}

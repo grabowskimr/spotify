@@ -6,7 +6,7 @@ type Props = {
 };
 
 const CategoryCover = (props: Props): JSX.Element => (
-	<div className="record-cover">
+	<div className="record-cover category">
 		<img className="record-cover-image" src={props.category.icons[0].url} alt="cover" />
 		<Link to={`/category/${props.category.id}`} className="category-link">
 			{props.category.name}

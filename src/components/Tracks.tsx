@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { RouteComponentProps } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { getTracks } from '../actions/apiCalls';
 import ContentHeader from '../containers/ContentHeader';
 import TracksList from '../containers/TracksList';
+import ListPlaceholder from '../containers/ListPlaceholder';
+import { clearTracks } from '../actions/actions';
 
 type MatchParams = {
 	id: string;
@@ -11,19 +14,27 @@ type MatchParams = {
 };
 
 const Tracks: React.FC<RouteComponentProps<MatchParams>> = (props): JSX.Element => {
-	const [tracks, setTracks] = useState<SpotifyTrack[]>();
-	useEffect(() => {
-		const fetchData = async () => {
-			const data = await getTracks(props.match.params.id, props.match.params.type);
-			setTracks(data.items);
-		};
+	const tracks = useSelector((state: ReduxState) => state.tracks);
+	const dispatch = useDispatch();
+	const data = useMemo(
+		() => ({
+			tracks: tracks
+		}),
+		[tracks]
+	);
 
-		fetchData();
-	}, [props.match.params.id, props.match.params.type]);
+	useEffect(() => {
+		dispatch(getTracks(props.match.params.id, props.match.params.type));
+
+		return () => {
+			dispatch(clearTracks());
+		};
+	}, [dispatch, props.match.params.id, props.match.params.type]);
+
 	return (
 		<>
 			<ContentHeader title="Tracks" />
-			{tracks && tracks.length ? <TracksList tracks={tracks} /> : null}
+			{tracks && tracks.length ? <TracksList tracks={data.tracks} playlistId={props.match.params.id} /> : <ListPlaceholder />}
 		</>
 	);
 };

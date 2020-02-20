@@ -4,7 +4,8 @@ import { Action } from 'redux';
 
 import SPOTIFY from '../constants/spotify';
 import { endpoint } from '../constants/config';
-import { insertPlaylists, insertCategories } from './actions';
+import { insertPlaylists, insertCategories, showError, saveTracks } from './actions';
+import { standarizeTracks } from '../utils/standarizeTracks';
 
 type TResult<R> = ThunkAction<R, ReduxState, undefined, Action>;
 type TDispatch = ThunkDispatch<ReduxState, undefined, Action>;
@@ -17,6 +18,14 @@ const getData = (url: string): Promise<any> | null => {
 	return null;
 };
 
+const dispatchError = (dispatch: TDispatch, message: string) => {
+	if (message === 'Request failed with status code 401') {
+		localStorage.removeItem('token');
+		initApp();
+	}
+	dispatch(showError(message));
+};
+
 export const initApp = function() {
 	let token: string | null = localStorage.getItem('token');
 
@@ -25,6 +34,7 @@ export const initApp = function() {
 		let newToken = match && match[1];
 		if (newToken) {
 			localStorage.setItem('token', newToken);
+			window.location.href = window.location.href.split('#')[0];
 		} else {
 			window.location.replace(
 				`https://accounts.spotify.com/authorize?client_id=${SPOTIFY.CLINET_ID}&response_type=token&redirect_uri=${SPOTIFY.REDIRECT_URI}`
@@ -33,7 +43,6 @@ export const initApp = function() {
 	}
 
 	axios.defaults.headers.common.Authorization = 'Bearer ' + token;
-	window.location.hash = '';
 	return token;
 };
 
@@ -41,27 +50,54 @@ export const initApp = function() {
 // 	const data = await getData(`/me`);
 // };
 
-export const getFeaturedPlaylist = (): TResult<Promise<void>> => async (dispatch: TDispatch) => {
-	const { data }: SpotifyResponse<SporifyPlaylists> = await getData(`/browse/featured-playlists`);
-	dispatch(insertPlaylists(data.playlists.items));
+export const getTracksList = async (id: string, type: string | undefined): Promise<SpotifyStandardizedTracks> => {
+	console.log('asda');
+	const { data }: SpotifyResponse<SpotifyTracks> = await getData(`/${type}s/${id}/tracks`);
+	const tracks: SpotifyStandardizedTracks = { ...data, items: standarizeTracks(data.items) };
+	return tracks;
 };
 
-export const getTracks = async (id: string, type: string): Promise<SpotifyTracks> => {
-	const { data }: SpotifyResponse<SpotifyTracks> = await getData(`/${type}s/${id}/tracks`);
-	return data;
+export const getFeaturedPlaylist = (): TResult<Promise<void>> => async (dispatch: TDispatch) => {
+	try {
+		const { data }: SpotifyResponse<SporifyPlaylists> = await getData(`/browse/featured-playlists`);
+		dispatch(insertPlaylists(data.playlists.items));
+	} catch (e) {
+		dispatchError(dispatch, e.message);
+	}
+};
+
+export const getTracks = (id: string, type: string | undefined): TResult<Promise<void>> => async (dispatch: TDispatch) => {
+	try {
+		const data: SpotifyStandardizedTracks = await getTracksList(id, type);
+		dispatch(saveTracks(data.items));
+	} catch (e) {
+		dispatch(showError(e.message));
+	}
 };
 
 export const getListOfCategories = (): TResult<Promise<void>> => async (dispatch: TDispatch) => {
-	const { data }: SpotifyResponse<SpotifyCategories> = await getData(`/browse/categories`);
-	dispatch(insertCategories(data.categories.items));
+	try {
+		const { data }: SpotifyResponse<SpotifyCategories> = await getData(`/browse/categories`);
+		dispatch(insertCategories(data.categories.items));
+	} catch (e) {
+		dispatch(showError(e.message));
+	}
 };
 
 export const getCategoryPlaylists = (id: string): TResult<Promise<void>> => async (dispatch: TDispatch) => {
-	const { data }: SpotifyResponse<SporifyPlaylists> = await getData(`/browse/categories/${id}/playlists`);
-	dispatch(insertPlaylists(data.playlists.items));
+	try {
+		const { data }: SpotifyResponse<SporifyPlaylists> = await getData(`/browse/categories/${id}/playlists`);
+		dispatch(insertPlaylists(data.playlists.items));
+	} catch (e) {
+		dispatch(showError(e.message));
+	}
 };
 
 export const getNewReleases = (): TResult<Promise<void>> => async (dispatch: TDispatch) => {
-	const { data }: SpotifyResponse<SporifyAlbumsList> = await getData(`/browse/new-releases`);
-	dispatch(insertPlaylists(data.albums.items));
+	try {
+		const { data }: SpotifyResponse<SporifyAlbumsList> = await getData(`/browse/new-releases`);
+		dispatch(insertPlaylists(data.albums.items));
+	} catch (e) {
+		dispatch(showError(e.message));
+	}
 };

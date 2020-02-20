@@ -12,6 +12,11 @@
 }
 .record-cover {
 	position: relative;
+	&.category {
+		width: 100%;
+		min-height: 15vw;
+		background: $border;
+	}
 	.record-cover-name {
 		font-size: 1.1rem;
 		margin: 10px 0px 5px;
@@ -39,9 +44,17 @@
 	}
 	.record-cover-image {
 		max-width: 100%;
+		display: block;
+		width: 100%;
 	}
 	.record-player-content {
 		position: relative;
+		width: 100%;
+		min-height: 15vw;
+		background: $border;
+		.record-cover-image {
+			display: block;
+		}
 		.player-content {
 			position: absolute;
 			top: 0px;
@@ -51,6 +64,10 @@
 			opacity: 0;
 			visibility: hidden;
 			background: $bgColorTransparent;
+			&.played-cover {
+				opacity: 1;
+				visibility: visible;
+			}
 			.play {
 				width: 4rem;
 				height: 4rem;
@@ -86,6 +103,29 @@
 		padding-bottom: 25%;
 		&:hover {
 			text-decoration: underline;
+		}
+	}
+}
+.cover-placeholder {
+	opacity: 0.3;
+	animation: fading 1.5s infinite;
+	.cover-placeholder-image {
+		width: 100%;
+		height: 14vw;
+		min-height: 150px;
+		background: $border;
+	}
+	.cover-placeholder-description {
+		width: 100%;
+		background: $border;
+		height: 20px;
+		border-radius: 20px;
+		margin: 10px 0px;
+		&.small {
+			width: 70%;
+			background: $border;
+			height: 15px;
+			border-radius: 20px;
 		}
 	}
 }

@@ -20,7 +20,7 @@ const Home: React.FC = (): JSX.Element => {
 	return (
 		<div>
 			<ContentHeader title="Home" />
-			{covers.length ? <CoverList covers={covers} /> : null}
+			<CoverList covers={covers} />
 		</div>
 	);
 };

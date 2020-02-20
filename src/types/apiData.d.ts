@@ -90,6 +90,7 @@ interface SpotifyTrack {
 	id: string;
 	duration_ms: number;
 	artists: SpotifyTrackArtist[];
+	preview_url: string;
 }
 
 interface SpotifyTrackArtist {

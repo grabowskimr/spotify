@@ -20,14 +20,22 @@ const PlayerControls = (props: Props): JSX.Element => {
 	const isPlaying = useSelector((state: ReduxState) => state.play);
 	const correctPlaylist = playedPlaylistId === props.trackListId;
 	return (
-		<div className={`player-content ${correctPlaylist ? 'played-cover' : null}`}>
+		<div data-testid="player" className={`player-content ${correctPlaylist ? 'played-cover' : null}`}>
 			<div className={`player-controls ${isPlaying && props.currentPlayed ? 'visible' : null}`}>
 				{props.type !== 'play' ? (
-					<button className={`player-control prev ${prevAvailable && correctPlaylist ? 'available' : null}`} onClick={props.handlePrev}>
+					<button
+						data-test-id="prev"
+						className={`player-control prev ${prevAvailable && correctPlaylist ? 'available' : null}`}
+						onClick={props.handlePrev}
+					>
 						<span className="material-icons">skip_previous</span>
 					</button>
 				) : null}
-				<button className={`player-control play ${props.type === 'full' && !playedTrack.id ? 'disabled' : null}`} onClick={props.handlePlay}>
+				<button
+					data-testid="play"
+					className={`player-control play ${props.type === 'full' && !playedTrack.id ? 'disabled' : null}`}
+					onClick={props.handlePlay}
+				>
 					{(isPlaying && correctPlaylist && props.type === 'simple') ||
 					(isPlaying && props.currentPlayed && props.type !== 'simple') ||
 					(isPlaying && props.type === 'full') ? (
@@ -37,7 +45,11 @@ const PlayerControls = (props: Props): JSX.Element => {
 					)}
 				</button>
 				{props.type !== 'play' ? (
-					<button className={`player-control next ${nextAvailable && correctPlaylist ? 'available' : null}`} onClick={props.handleNext}>
+					<button
+						data-test-id="next"
+						className={`player-control next ${nextAvailable && correctPlaylist ? 'available' : null}`}
+						onClick={props.handleNext}
+					>
 						<span className="material-icons">skip_next</span>
 					</button>
 				) : null}

@@ -70,7 +70,7 @@ export const getTracks = (id: string, type: string | undefined): TResult<Promise
 		const data: SpotifyStandardizedTracks = await getTracksList(id, type);
 		dispatch(saveTracks(data.items));
 	} catch (e) {
-		dispatch(showError(e.message));
+		dispatchError(dispatch, e.message);
 	}
 };
 
@@ -79,7 +79,7 @@ export const getListOfCategories = (): TResult<Promise<void>> => async (dispatch
 		const { data }: SpotifyResponse<SpotifyCategories> = await getData(`/browse/categories`);
 		dispatch(insertCategories(data.categories.items));
 	} catch (e) {
-		dispatch(showError(e.message));
+		dispatchError(dispatch, e.message);
 	}
 };
 
@@ -88,7 +88,7 @@ export const getCategoryPlaylists = (id: string): TResult<Promise<void>> => asyn
 		const { data }: SpotifyResponse<SporifyPlaylists> = await getData(`/browse/categories/${id}/playlists`);
 		dispatch(insertPlaylists(data.playlists.items));
 	} catch (e) {
-		dispatch(showError(e.message));
+		dispatchError(dispatch, e.message);
 	}
 };
 
@@ -97,7 +97,7 @@ export const getNewReleases = (): TResult<Promise<void>> => async (dispatch: TDi
 		const { data }: SpotifyResponse<SporifyAlbumsList> = await getData(`/browse/new-releases`);
 		dispatch(insertPlaylists(data.albums.items));
 	} catch (e) {
-		dispatch(showError(e.message));
+		dispatchError(dispatch, e.message);
 	}
 };
 
@@ -111,6 +111,6 @@ export const search = (query: string): TResult<Promise<void>> => async (dispatch
 		});
 		dispatch(insertPlaylists(data.playlists.items));
 	} catch (e) {
-		dispatch(showError(e.message));
+		dispatchError(dispatch, e.message);
 	}
 };

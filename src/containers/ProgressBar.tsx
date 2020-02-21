@@ -7,24 +7,24 @@ const ProgressBar = () => {
 	const [progress, setProgress] = useState(0);
 	const max = 30;
 
-	const timerToClearSomewhere: any = useRef();
+	const interval: any = useRef();
 
 	useEffect(() => {
 		setProgress(0);
-		clearInterval(timerToClearSomewhere.current);
+		clearInterval(interval.current);
 	}, [playedTrack]);
 
 	useEffect(() => {
 		if (isPlaying) {
 			if (progress < max) {
-				timerToClearSomewhere.current = setInterval(() => {
+				interval.current = setInterval(() => {
 					setProgress(progress + 1);
 				}, 1000);
 			}
 		}
 
 		return () => {
-			clearInterval(timerToClearSomewhere.current);
+			clearInterval(interval.current);
 		};
 	}, [progress, isPlaying, playedTrack]);
 
